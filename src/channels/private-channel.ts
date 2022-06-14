@@ -47,19 +47,6 @@ export class PrivateChannel {
 
         let authHostSelected = authHosts[0] || 'http://localhost';
 
-        if (socket.request.headers.referer) {
-            let referer = url.parse(socket.request.headers.referer);
-
-            for (let authHost of authHosts) {
-                authHostSelected = authHost;
-
-                if (this.hasMatchingHost(referer, authHost)) {
-                    authHostSelected = `${referer.protocol}//${referer.host}`;
-                    break;
-                }
-            };
-        }
-
         if (this.options.devMode) {
             Log.error(`[${new Date().toISOString()}] - Preparing authentication request to: ${authHostSelected}`);
         }
